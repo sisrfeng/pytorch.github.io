@@ -11,33 +11,88 @@ published: true
 
 ## Overview
 
-Introducing PyTorch 2.0, our first steps toward the next generation 2-series release of PyTorch. Over the last few years we have innovated and iterated from PyTorch 1.0 to the most recent 1.13 and moved to the newly formed PyTorch Foundation, part of the Linux Foundation.
+Introducing PyTorch 2.0,
+our first steps toward the next generation 2-series release of PyTorch.
+Over the last few years we have innovated and
+iterated from PyTorch 1.0 to the most recent 1.13 and
+moved to the newly formed PyTorch Foundation,
+part of the Linux Foundation.
 
-PyTorch’s biggest strength beyond our amazing community is that we continue as a first-class Python integration, imperative style, simplicity of the API and options. PyTorch 2.0 offers the same eager-mode development and user experience, while fundamentally changing and supercharging how PyTorch operates at compiler level under the hood. We are able to provide faster performance and support for Dynamic Shapes and Distributed.
+PyTorch’s biggest strength beyond our amazing community
+is that we continue as a first-class Python integration,
+imperative style, (而非functional programming style?)
+simplicity of the API and
+options.
+PyTorch 2.0 offers the same eager-mode development and  user experience,
+while fundamentally changing and
+supercharging how PyTorch operates at ¿compiler level¿ under the hood.
+We are able to provide faster performance and
+support for Dynamic Shapes and  Distributed.
 
-Below you will find all the information you need to better understand what PyTorch 2.0 is, where it’s going and more importantly how to get started today (e.g., tutorial, requirements, models, common FAQs). There is still a lot to learn and develop but we are looking forward to community feedback and contributions to make the 2-series better and thank you all who have made the 1-series so successful.
+Below you will find all the information you need to better understand what PyTorch 2.0 is,
+where it’s going and
+more importantly how to get started today (e.g.,
+tutorial,
+requirements,
+models,
+common FAQs).
+There is still a lot to learn and
+develop but we are looking forward to community feedback and
+contributions to make the 2-series better and
+thank you all who have made the 1-series so successful.
 
 ## PyTorch 2.x: faster, more pythonic and as dynamic as ever
 
-Today, we announce `torch.compile`, a feature that pushes PyTorch performance to new heights and starts the move for parts of PyTorch from C++ back into Python. We believe that this is a substantial new direction for PyTorch -- hence we call it 2.0. `torch.compile` is a fully additive (and optional) feature and hence 2.0 is 100% backward compatible by definition.
+Today,
+we announce `torch.compile`,
+a feature that pushes PyTorch performance to new heights and
+starts the move for parts of PyTorch ¿from C++ back into Python¿.
+We believe that this is a substantial new direction for PyTorch -- hence we call it 2.0.
+`torch.compile` is a fully additive (and optional)  feature and
+hence 2.0 is ¿100% backward compatible¿ by  definition.
 
 Underpinning `torch.compile` are new technologies -- TorchDynamo, AOTAutograd, PrimTorch and TorchInductor.
 
-- **TorchDynamo** captures PyTorch programs safely using Python Frame Evaluation Hooks and is a significant innovation that was a result of 5 years of our R&D into safe graph capture
+- **TorchDynamo** captures PyTorch programs safely
+    using Python Frame Evaluation Hooks and
+    is a significant innovation that was a result of 5 years of our R&D into safe graph capture
 
-* **AOTAutograd** overloads PyTorch’s autograd engine as a tracing autodiff for generating ahead-of-time backward traces.
+* **AOTAutograd** overloads PyTorch’s autograd engine
+    as a tracing autodiff for generating ahead-of-time backward traces.
 
-- **PrimTorch** canonicalizes ~2000+ PyTorch operators down to a closed set of ~250 primitive operators that developers can target to build a complete PyTorch backend. This substantially lowers the barrier of writing a PyTorch feature or backend.
-- **TorchInductor** is a deep learning compiler that generates fast code for multiple accelerators and backends. For NVIDIA GPUs, it uses OpenAI Triton as a key building block.
+- **PrimTorch** 
+    canonicalizes ~2000+ PyTorch operators down to a closed set of ~250 primitive operators that developers can target to build a complete PyTorch backend. This substantially lowers the barrier of writing a PyTorch feature or backend.
 
-TorchDynamo, AOTAutograd, PrimTorch and TorchInductor are written in Python and support dynamic shapes (i.e. the ability to send in Tensors of different sizes without inducing a recompilation), making them flexible, easily hackable and lowering the barrier of entry for developers and vendors.
+- **TorchInductor** is a deep learning compiler that generates fast code for multiple accelerators and backends.
+    For NVIDIA GPUs, it uses OpenAI Triton as a key building block.
 
-To validate these technologies, we used a diverse set of 163 open-source models across various machine learning domains. We built this benchmark carefully to include tasks such as Image Classification, Object Detection, Image Generation, various NLP tasks such as Language Modeling, Q&A, Sequence Classification, Recommender Systems and Reinforcement Learning. We separate the benchmarks into three categories:
+TorchDynamo,
+AOTAutograd,
+PrimTorch and
+TorchInductor are written in Python and
+support dynamic shapes (i.e.  the ability to send in Tensors of different sizes without inducing a recompilation),
+making them flexible,
+easily hackable and
+lowering the barrier of entry for developers and  vendors.
+
+To validate these technologies,
+we used a diverse set of 163 open-source models across various machine learning domains.
+We built this benchmark carefully to include tasks such as Image Classification,
+Object Detection,
+Image Generation,
+
+various NLP tasks such as Language Modeling,
+Q&A,
+Sequence Classification,
+Recommender Systems and
+Reinforcement Learning.
+We separate the benchmarks into three categories:
 
 <ul style="margin: 1.5rem 0 1.5rem 0;">
   <li>46 models from <a href="https://github.com/huggingface/transformers" target="_blank">HuggingFace Transformers</a></li>
-  <li>61 models from <a href="https://github.com/rwightman/pytorch-image-models" target="_blank">TIMM</a>: a collection of state-of-the-art PyTorch image models by Ross Wightman</li>
-  <li>56 models from <a href="https://github.com/pytorch/benchmark/" target="_blank">TorchBench</a>: a curated set of popular code-bases from across github</li>
+  <li>61 models from <a href="https://github.com/rwightman/pytorch-image-models" target="_blank">TIMM</a>:
+                          a collection of state-of-the-art PyTorch image models by Ross Wightman</li>
+  <li>56 models from <a href="https://github.com/pytorch/benchmark/" target="_blank">TorchBench</a>: a curated精选 set of popular code-bases from across github</li>
 </ul>
 
 <!--
@@ -45,22 +100,54 @@ To validate these technologies, we used a diverse set of 163 open-source models 
 - 61 models from [TIMM](https://github.com/rwightman/pytorch-image-models): a collection of state-of-the-art PyTorch image models by Ross Wightman
 - 56 models from [TorchBench](https://github.com/pytorch/benchmark/): a curated set of popular code-bases from across github -->
 
+!!!!
 We don’t modify these open-source models except to add a `torch.compile` call wrapping them.
 
-We then measure speedups and validate accuracy across these models. Since speedups can be dependent on data-type, we measure speedups on both float32 and Automatic Mixed Precision (AMP). We report an uneven weighted average speedup of _0.75 * AMP + 0.25 * float32_ since we find AMP is more common in practice.
+We
+then measure speedups and
+validate accuracy across these models.
+Since speedups can be dependent on data-type,
+we measure speedups on both float32 and
+Automatic Mixed Precision (AMP).
+We report an uneven weighted average speedup of
+    _0.75 * AMP + 0.25 * float32_ since
+we find AMP is more common in practice.
 
-Across these 163 open-source models `torch.compile` works 93% of time, and the model runs 43% faster in training on an NVIDIA A100 GPU. At Float32 precision, it runs 21% faster on average and at AMP Precision it runs 51% faster on average.
+Across these 163 open-source models `torch.compile` works 93% of time,
+and the model runs 43% faster in training on an NVIDIA A100 GPU.
+At Float32 precision,
+    it runs 21% faster on average and
+at AMP Precision it runs 51% faster on average.
 
-**Caveats:** On a desktop-class GPU such as a NVIDIA 3090, we’ve measured that speedups are lower than on server-class GPUs such as A100. As of today, our default backend TorchInductor supports CPUs and NVIDIA Volta and Ampere GPUs. It does not (yet) support other GPUs, xPUs or older NVIDIA GPUs.
-
-<p>
+**Caveats:** On a desktop-class GPU such as a NVIDIA 3090,
+we’ve measured that speedups are lower than
+on server-class GPUs such as A100.
+As of today,
+    our default backend ¿TorchInductor¿ supports CPUs and
+                                                NVIDIA Volta and
+                                                Ampere GPUs.
+    It does not (yet)  support other GPUs,  xPUs or  older NVIDIA GPUs.  <p>
 <img src="/assets/images/Caveats.jpg" width="90%">
 <center> <u> Speedups for torch.compile against eager mode on an NVIDIA A100 GPU </u> </center>
 </p>
 
-**Try it:** `torch.compile` is in the early stages of development. Starting today, you can try out `torch.compile` in the `nightly` binaries. We expect to ship the first stable 2.0 release in early March 2023.
+**Try it:** `torch.compile` is in the early stages of development.
+Starting today,
+you can try out `torch.compile` in the `nightly` binaries.
+We expect to ship the first stable 2.0 release in early ¿March 2023¿.
 
-In the roadmap of PyTorch 2.x we hope to push the compiled mode further and further in terms of performance and scalability. Some of this work is in-flight, as we talked about at the Conference today. Some of this work has not started yet. Some of this work is what we hope to see, but don’t have the bandwidth to do ourselves. If you are interested in contributing, come chat with us at the **Ask the Engineers: 2.0 Live Q&A Series** starting this month (details at the end of this post) and/or via Github / Forums.
+In the roadmap of PyTorch 2.x we hope to push the compiled mode further and
+further in terms of performance and  scalability.
+Some of this work is in-flight,
+as we talked about at the Conference today.
+Some of this work has not started yet.
+Some of this work is what we hope to see,
+    but don’t have the bandwidth to do ourselves.
+
+If you are interested in contributing,
+come chat with us at the **Ask the Engineers:  2.0 Live Q&A Series** starting this month (details at the end of this post)
+and/or via
+Github / Forums.
 
 <p>
 <img src="/assets/images/pytorch-2.0-img2.png" width="90%">
@@ -72,7 +159,7 @@ Here is what some of PyTorch’s users have to say about our new direction:
 
 **Sylvain Gugger** the **primary maintainer of HuggingFace transformers**:
 
-_"With just one line of code to add, PyTorch 2.0 gives a speedup between 1.5x and 2.x in training Transformers models. This is the most exciting thing since mixed precision training was introduced!"_
+_"With just one line of code to add, PyTorch 2.0 gives a speedup between 1.5x and 2.x in TRAINING Transformers models. This is the most exciting thing since mixed precision training was introduced!"_
 
 **Ross Wightman the primary maintainer of TIMM** (one of the largest vision model hubs within the PyTorch ecosystem):
 
@@ -84,15 +171,28 @@ _“PyTorch 2.0 embodies the future of deep learning frameworks. The possibility
 
 ## Motivation
 
-Our philosophy on PyTorch has always been to keep flexibility and hackability our top priority, and performance as a close second. We strived for:
+Our philosophy on PyTorch has always been to keep flexibility and
+hackability our top priority,
+and performance as a close second.
+We strived for:
 
 1. High-Performance eager execution
 2. Pythonic internals
 3. Good abstractions for Distributed, Autodiff, Data loading, Accelerators, etc.
 
-Since we launched PyTorch in 2017, hardware accelerators (such as GPUs) have become ~15x faster in compute and about ~2x faster in the speed of memory access. So, to keep eager execution at high-performance, we've had to move substantial parts of PyTorch internals into C++. Moving internals into C++ makes them less hackable and increases the barrier of entry for code contributions.
+Since we launched PyTorch in 2017,
+hardware accelerators (such as GPUs)
+    have become ~15x faster in compute and
+    about ~2x faster in the speed of memory access.
+So, to keep eager execution at high-performance,
+we've had to move substantial parts of ¿PyTorch internals into C++¿.
+    Moving internals into C++ makes them less hackable and
+    increases the barrier of entry for code contributions.
 
-From day one, we knew the performance limits of eager execution. In July 2017, we started our first research project into developing a Compiler for PyTorch. The compiler needed to make a PyTorch program fast, but not at the cost of the PyTorch experience. Our key criteria was to preserve certain kinds of flexibility -- support for dynamic shapes and dynamic programs which researchers use in various stages of exploration.
+From day one, we knew the performance limits of eager execution.
+In July 2017,
+    we started our first research project into developing a Compiler for PyTorch.
+    The compiler needed to make a PyTorch program fast, but not at the cost of the PyTorch experience. Our key criteria was to preserve certain kinds of flexibility -- support for dynamic shapes and dynamic programs which researchers use in various stages of exploration.
 
 <p>
 <img src="/assets/images/pytorch-2.0-img3.gif" width="90%">
@@ -108,8 +208,20 @@ Over the years, we've built several compiler projects within PyTorch. Let us bre
 
 Graph acquisition was the harder challenge when building a PyTorch compiler.
 
-In the past 5 years, we built `torch.jit.trace`, TorchScript, FX tracing, Lazy Tensors. But none of them felt like they gave us everything we wanted. Some were flexible but not fast, some were fast but not flexible and some were neither fast nor flexible. Some had bad user-experience (like being silently wrong). While TorchScript was promising, it needed substantial changes to your code and the code that your code depended on. This need for substantial change in code made it a non-starter for a lot of PyTorch users.
-
+In the past 5 years,
+we built `torch.jit.trace`,
+    TorchScript,
+    FX tracing,
+    Lazy Tensors.
+But none of them felt like they gave us everything we wanted.
+Some were flexible but not fast,
+some were fast but not flexible and
+some were neither fast nor flexible.
+Some had bad user-experience (like being silently wrong).
+While TorchScript was promising,
+    it needed substantial changes to your code and
+    the code that your code depended on.
+This need for substantial change in code made it a non-starter for a lot of PyTorch users. 
 <p>
 <img src="/assets/images/pytorch-2.0-img4.jpg" width="90%">
 <center><u>The PyTorch compilation process</u></center>
@@ -117,11 +229,29 @@ In the past 5 years, we built `torch.jit.trace`, TorchScript, FX tracing, Lazy T
 
 ### TorchDynamo: Acquiring Graphs reliably and fast
 
-Earlier this year, we started working on TorchDynamo, an approach that uses a CPython feature introduced in [PEP-0523](https://peps.python.org/pep-0523/) called the Frame Evaluation API. We took a data-driven approach to validate its effectiveness on Graph Capture. We used 7,000+ Github projects written in PyTorch as our validation set. While TorchScript and others struggled to even acquire the graph 50% of the time, often with a big overhead, TorchDynamo acquired the graph [99% of the time](https://dev-discuss.pytorch.org/t/torchdynamo-update-8-torchdynamo-passed-correctness-check-on-7k-github-models/663), correctly, safely and with negligible overhead – without needing any changes to the original code. This is when we knew that we finally broke through the barrier that we were struggling with for many years in terms of flexibility and speed.
+Earlier this year, we started working on TorchDynamo,
+an approach that uses a CPython feature introduced in [PEP-0523](https://peps.python.org/pep-0523/)
+    called the Frame Evaluation API.
+We took a data-driven approach to validate its effectiveness on Graph Capture.
+We used 7,000+ Github projects written in PyTorch as our validation set.
+While TorchScript and others struggled to even acquire the graph 50% of the time,
+often with a big overhead,
+TorchDynamo acquired the graph [99% of the time](https://dev-discuss.pytorch.org/t/torchdynamo-update-8-torchdynamo-passed-correctness-check-on-7k-github-models/663), correctly,
+safely and with negligible overhead –
+without needing any changes to the original code.
+This is when we knew that we finally broke through
+the barrier that we were struggling with for many years in terms of flexibility and speed. 
 
 ### TorchInductor: fast codegen using a define-by-run IR
 
-For a new compiler backend for PyTorch 2.0, we took inspiration from how our users were writing high performance custom kernels: increasingly using the [Triton](https://github.com/openai/triton) language. We also wanted a compiler backend that used similar abstractions to PyTorch eager, and was general purpose enough to support the wide breadth of features in PyTorch. TorchInductor uses a pythonic define-by-run loop level IR to automatically map PyTorch models into generated Triton code on GPUs and C++/OpenMP on CPUs. TorchInductor’s core loop level IR contains only ~50 operators, and it is implemented in Python, making it easily hackable and extensible.
+For a new ¿compiler backend¿ for PyTorch 2.0,
+we took inspiration from how our users were writing high performance custom kernels:
+increasingly using the [Triton](https://github.com/openai/triton) language.
+We also wanted a compiler backend that used similar abstractions to PyTorch eager,
+and was general purpose enough to support the wide breadth of features in PyTorch.
+TorchInductor uses a pythonic define-by-run loop level IR to automatically map PyTorch models into generated Triton code on GPUs and C++/OpenMP on CPUs. TorchInductor’s core loop level IR contains only ~50 operators,
+and it is implemented in Python,
+making it easily hackable and extensible.
 
 ### AOTAutograd: reusing Autograd for ahead-of-time graphs
 
@@ -145,13 +275,16 @@ We discuss more about this topic below in the Developer/Vendor Experience sectio
 
 ## User Experience
 
-We introduce a simple function `torch.compile` that wraps your model and returns a compiled model.
+We introduce a simple function `torch.compile` that wraps your model and
+returns a compiled model.
 
 ```python
 compiled_model = torch.compile(model)
 ```
 
-This `compiled_model` holds a reference to your model and compiles the `forward` function to a more optimized version. When compiling the model, we give a few knobs to adjust it:
+This `compiled_model` holds a reference to your model and
+compiles the `forward` function to a more optimized version.
+When compiling the model, we give a few knobs to adjust it:
 
 ```python
 def torch.compile(model: Callable,
@@ -167,20 +300,44 @@ def torch.compile(model: Callable,
 
 - **mode** specifies what the compiler should be optimizing while compiling.
 
-  - The default mode is a preset that tries to compile efficiently without taking too long to compile or using extra memory.
-  - Other modes such as `reduce-overhead` reduce the framework overhead by a lot more, but cost a small amount of extra memory. `max-autotune` compiles for a long time, trying to give you the fastest code it can generate.
+  - The default mode is a preset that tries to compile efficiently
+      without taking too long to compile or
+      using extra memory.
 
-- **dynamic** specifies whether to enable the code path for Dynamic Shapes. Certain compiler optimizations cannot be applied to dynamic shaped programs. Making it explicit whether you want a compiled program with dynamic shapes or with static shapes will help the compiler give you better optimized code.
-- **fullgraph** is similar to Numba’s `nopython`. It compiles the entire program into a single graph or gives an error explaining why it could not do so. Most users don’t need to use this mode. If you are very performance conscious, then you try to use it.
-- **backend** specifies which compiler backend to use. By default, TorchInductor is used, but there are a few others available.
+  - Other modes such as `reduce-overhead` reduce the framework overhead by
+  a lot more,
+  but cost a small amount of extra memory.
+  `max-autotune` compiles for a long time,
+      trying to give you the fastest code it can generate.
+
+- **dynamic** specifies whether to enable the code path for Dynamic Shapes.
+    Certain compiler optimizations cannot be applied to dynamic shaped programs.
+    Making it explicit whether you want a compiled program with dynamic shapes or
+    with static shapes will help the compiler give you better optimized code.
+
+- **fullgraph** is similar to Numba’s `nopython`.
+    It compiles the entire program into a single graph or
+    gives an error explaining why it could not do so.
+    Most users don’t need to use this mode.
+    If you are very performance conscious,
+    then you try to use it.
+    
+- **backend** specifies which compiler backend to use.
+    By default, TorchInductor is used,
+    but there are a few others available.
 
 <p>
 <img src="/assets/images/pytorch-2.0-img6.png" width="90%">
 </p>
 
-The compile experience intends to deliver most benefits and the most flexibility in the default mode. Here is a mental model of what you get in each mode.
+The compile experience intends to deliver most benefits and
+the most flexibility in the default mode.
+Here is a mental model of what you get in each mode.
 
-Now, let us look at a full example of compiling a real model and running it (with random data)
+Now,
+let us look at a full example
+of compiling a real model and
+running it (with random data)
 
 ```python
 import torch
@@ -197,12 +354,19 @@ out.sum().backward()
 optimizer.step()
 ```
 
-The first time you run the `compiled_model(x)`, it compiles the model. Hence, it takes longer to run. Subsequent runs are fast.
+The first time you run the `compiled_model(x)`,
+it compiles the model.
+Hence,
+it takes longer to run.
+Subsequent runs are fast.
 
 ### Modes
 
 The compiler has a few presets that tune the compiled model in different ways.
-You might be running a small model that is slow because of framework overhead. Or, you might be running a large model that barely fits into memory. Depending on your need, you might want to use a different mode.
+You might be running a small model that is  slow because  of framework overhead.
+Or, you might be running a large model that barely fits into memory.
+Depending on your need,
+    you might want to use a different mode. 
 
 ```python
 # API NOT FINAL
@@ -223,10 +387,19 @@ torch.compile(model, mode="max-autotune")
 ### Reading and updating Attributes
 
 Accessing model attributes work as they would in eager mode.
-You can access or modify attributes of your model (such as `model.conv1.weight`) as you generally would. This is completely safe and sound in terms of code correction. TorchDynamo inserts guards into the code to check if its assumptions hold true. If attributes change in certain ways, then TorchDynamo knows to recompile automatically as needed.
+You can access or
+modify attributes of your model (such as `model.conv1.weight`)
+as you generally would.
+This is completely safe and
+sound in terms of code correction.
+TorchDynamo inserts guards into the code to check if its assumptions hold true.
+If attributes change in certain ways,
+    then TorchDynamo knows to ¿recompile automatically¿ as needed.
+
 
 ```python
-# optimized_model works similar to model, feel free to access its attributes and modify them
+# optimized_model works similar to model,
+# feel free to access its attributes and modify them
 optimized_model.conv1.weight.fill_(0.01)
 
 # this change is reflected in model
@@ -234,20 +407,22 @@ optimized_model.conv1.weight.fill_(0.01)
 
 ### Hooks
 
-Module and Tensor [hooks](https://pytorch.org/docs/stable/notes/modules.html#module-hooks) don’t fully work at the moment, but they will eventually work as we finish development.
+Module and Tensor [hooks](https://pytorch.org/docs/stable/notes/modules.html#module-hooks)
+don’t fully work at the moment,
+but they will eventually work as we finish development.
 
 ### Serialization
 
-You can serialize the state-dict of the `optimized_model` OR the `model`. They point to the same parameters and state and hence are equivalent.
-
+You can serialize the state-dict of the `optimized_model` OR the `model`.
+They point to the same parameters and state and hence are equivalent. 
 ```python
 torch.save(optimized_model.state_dict(), "foo.pt")
 # both these lines of code do the same thing
-torch.save(model.state_dict(), "foo.pt")
+torch.save(          model.state_dict(), "foo.pt")
 ```
 
-You cannot serialize `optimized_model` currently. If you wish to save the object directly, save `model` instead.
-
+You cannot serialize `optimized_model` currently.
+If you wish to save the object directly, save `model` instead. 
 ```python
 torch.save(optimized_model, "foo.pt") # Error
 torch.save(model, "foo.pt")           # Works
@@ -255,9 +430,17 @@ torch.save(model, "foo.pt")           # Works
 
 ### Inference and Export
 
-For model inference, after generating a compiled model using torch.compile, run some warm-up steps before actual model serving. This helps mitigate latency spikes during initial serving.
+For model inference,
+    after generating a compiled model using torch.compile,
+    run some warm-up steps before actual model serving.
+    This helps mitigate latency spikes during initial serving.
 
-In addition, we will be introducing a mode called `torch.export` that carefully exports the entire model and the guard infrastructure for environments that need guaranteed and predictable latency. `torch.export` would need changes to your program, especially if you have data dependent control-flow.
+In addition,
+we will be introducing a mode called `torch.export` that
+    carefully exports the entire model and
+                      the guard infrastructure for environments that need guaranteed and  predictable latency.
+`torch.export` would need ¿changes to your program¿,
+especially if you have data dependent control-flow.
 
 ```python
 # API Not Final
@@ -265,7 +448,10 @@ exported_model = torch._dynamo.export(model, input)
 torch.save(exported_model, "foo.pt")
 ```
 
-This is in early stages of development. Catch the talk on Export Path at the PyTorch Conference for more details. You can also engage on this topic at our “Ask the Engineers: 2.0 Live Q&A Series” starting this month (more details at the end of this post).
+This is in early stages of development.
+Catch the talk on Export Path at the PyTorch Conference for more details.
+You can also engage on this topic at our “Ask the Engineers:
+2.0 Live Q&A Series” starting this month (more details at the end of this post).
 
 ### Debugging Issues
 
@@ -275,9 +461,19 @@ A compiled mode is opaque and hard to debug. You will have questions such as:
 - is compiled mode as accurate as eager mode?
 - why am I not seeing speedups?
 
-If compiled mode produces an error or a crash or diverging results from eager mode (beyond machine precision limits), it is very unlikely that it is your code’s fault. However, understanding what piece of code is the reason for the bug is useful.
+If compiled mode produces an error or
+a crash or
+diverging results from eager mode
+(beyond machine precision limits),
+it is very unlikely that it is your code’s fault.
+However, understanding what piece of code is the reason for the bug is useful.
 
-To aid in debugging and reproducibility, we have created several tools and logging capabilities out of which one stands out: **The Minifier.**
+To aid in debugging and
+reproducibility,
+we have created several tools and
+logging capabilities out of which
+one stands out:
+**The Minifier.**
 
 The minifier automatically reduces the issue you are seeing to a small snippet of code. This small snippet of code reproduces the original issue and you can file a github issue with the minified code. This will help the PyTorch team fix the issue easily and quickly.
 
@@ -287,26 +483,51 @@ You can read about these and more in our [troubleshooting guide](https://pytorch
 
 ### Dynamic Shapes
 
-When looking at what was necessary to support the generality of PyTorch code, one key requirement was supporting dynamic shapes, and allowing models to take in tensors of different sizes without inducing recompilation every time the shape changes.
+When looking at what was necessary to support the generality of PyTorch code,
+one key requirement was supporting dynamic shapes,
+and allowing models to take in tensors of different sizes without inducing recompilation every time the shape changes.
 
-As of today, support for Dynamic Shapes is limited and a rapid work in progress. It will be fully featured by stable release. It is gated behind a `dynamic=True` argument, and we have more progress on a feature branch (symbolic-shapes), on which we have successfully run BERT_pytorch in training with full symbolic shapes with TorchInductor. For inference with dynamic shapes, we have more coverage. For example, let’s look at a common setting where dynamic shapes are helpful - text generation with language models.
+As of today,
+support for Dynamic Shapes is limited and
+a rapid work in progress.
+It will be fully featured by
+stable release.
+It is gated behind a `dynamic=True` argument,
+and we have more progress on a feature branch (symbolic-shapes),
+on which
+we have successfully run BERT_pytorch in training with full symbolic shapes with TorchInductor.
 
-We can see that even when the shape changes dynamically from 4 all the way to 256, Compiled mode is able to consistently outperform eager by up to 40%. Without support for dynamic shapes, a common workaround is to pad to the nearest power of two. However, as we can see from the charts below, it incurs a significant amount of performance overhead, and also results in significantly longer compilation time. Moreover, padding is sometimes non-trivial to do correctly.
+For inference with dynamic shapes,
+    we have more coverage.
+    For example,
+let’s look at a common setting where dynamic shapes are helpful - text generation with language models.
 
-By supporting dynamic shapes in PyTorch 2.0’s Compiled mode, we can get the best of performance _and_ ease of use.
+We can see that even when the shape changes dynamically from 4 all the way to 256,
+Compiled mode is able to consistently outperform eager by
+up to 40%.
+Without support for dynamic shapes,
+    a common workaround is to pad to the nearest power of two.
+However,
+as we can see from the charts below,
+it incurs a significant amount of performance overhead,
+and also results in significantly longer compilation time.
+Moreover,
+    padding is sometimes non-trivial to do correctly.
 
-<div style="display:flex; flex-direction: row; padding: 10px;">
-<img src="/assets/images/pytorch-2.0-img7.png" width="50%">
-<img src="/assets/images/pytorch-2.0-img8.png" width="50%">
-</div>
-
-The current work is evolving very rapidly and we may temporarily let some models regress as we land fundamental improvements to infrastructure. The latest updates for our progress on dynamic shapes can be found [here](https://dev-discuss.pytorch.org/t/state-of-symbolic-shapes-branch/777/19).
+By supporting dynamic shapes in PyTorch 2.0’s Compiled mode,
+we can get the best of performance _and_ ease of use.
+ <div style="display:flex; flex-direction: row; padding: 10px;">  <img src="/assets/images/pytorch-2.0-img7.png" width="50%">  <img src="/assets/images/pytorch-2.0-img8.png" width="50%">  </div> 
+The current work is evolving very rapidly and we may temporarily let some models regress as we land fundamental improvements to infrastructure.
+The latest updates for our progress on dynamic shapes can be found [here](https://dev-discuss.pytorch.org/t/state-of-symbolic-shapes-branch/777/19).
 
 ## Distributed
 
 In summary, torch.distributed’s two main distributed wrappers work well in compiled mode.
 
-Both `DistributedDataParallel` (DDP) and `FullyShardedDataParallel` (FSDP) work in compiled mode and provide improved performance and memory utilization relative to eager mode, with some caveats and limitations.
+Both `DistributedDataParallel` (DDP)
+and `FullyShardedDataParallel` (FSDP) work in compiled mode and
+provide improved performance and memory utilization relative to eager mode,
+with some caveats and limitations.
 
 <p>
 <center> <u>Speedups in AMP Precision</u></center>
@@ -320,19 +541,52 @@ Right: FSDP in Compiled mode takes substantially lesser memory than in eager mod
 <img src="/assets/images/pytorch-2.0-img11.png" width="50%">
 </div>
 
-External launcher scripts and wrappers that simply apply DDP under the hood generally should work out of the box. Hugging Face Accelerate, Lightning, torchrun, and Ray Train have all been tested and verified working. DeepSpeed and Horovod have not been tested and we expect to enable them soon.
+External launcher scripts and wrappers that simply apply DDP under the hood generally should work out of the box.
+Hugging Face Accelerate,
+Lightning,
+torchrun,
+and Ray Train have all been tested and verified working.
+DeepSpeed and Horovod have not been tested and we expect to enable them soon.
 
-Manual gradient checkpointing (i.e. `torch.utils.checkpoint*` ) is in the works, and expected to be enabled in the near future. There is ongoing work to enable it, and this is partially mitigated by AOTAutograd’s min-cut partitioner, which recomputes some values in the `backward` call to reduce peak memory usage. This is evident from the memory compression results shown in the graph with FSDP in compiled mode.
+Manual gradient checkpointing (i.e. `torch.utils.checkpoint*` )
+is in the works,
+and expected to be enabled in the near future.
+There is ongoing work to enable it,
+and this is partially mitigated by AOTAutograd’s min-cut partitioner,
+which recomputes some values in the `backward` call to reduce peak memory usage.
+This is evident from the memory compression results shown in the graph with FSDP in compiled mode.
 
 Other experimental distributed subsystems, such as DistributedTensor and PiPPy, have not yet been tested with TorchDynamo.
 
 ### DistributedDataParallel (DDP)
 
-DDP relies on overlapping AllReduce communications with backwards computation, and grouping smaller per-layer AllReduce operations into ‘buckets’ for greater efficiency. AOTAutograd functions compiled by TorchDynamo prevent communication overlap, when combined naively with DDP, but performance is recovered by compiling separate subgraphs for each ‘bucket’ and allowing communication ops to happen outside and in-between the subgraphs. DDP support in compiled mode also currently requires `static_graph=True` and `find_unused_parameters=True`, but these shouldn’t be a long term requirement. See [this post](https://dev-discuss.pytorch.org/t/torchdynamo-update-9-making-ddp-work-with-torchdynamo/860) for more details on the approach and results for DDP + TorchDynamo.
+DDP relies on overlapping AllReduce communications with backwards computation,
+and grouping smaller per-layer AllReduce operations into ‘buckets’ for greater efficiency.
+
+AOTAutograd functions compiled by  TorchDynamo
+    prevent communication overlap,
+    when combined naively with DDP,
+    but performance is recovered by
+        compiling separate subgraphs
+            for each ‘bucket’ and allowing communication ops to happen outside and  in-between  the subgraphs.
+DDP support in compiled mode also currently requires `static_graph=True` and `find_unused_parameters=True`,
+but these shouldn’t be a long term requirement.
+See [this post](https://dev-discuss.pytorch.org/t/torchdynamo-update-9-making-ddp-work-with-torchdynamo/860)
+for more details on the approach and
+results for DDP + TorchDynamo.
 
 ### FullyShardedDataParallel (FSDP)
 
-FSDP itself is a “beta” PyTorch feature and has a higher level of system complexity than DDP due to the ability to tune which submodules are wrapped and because there are generally more configuration options. FSDP works with TorchDynamo and TorchInductor for a variety of popular models, if configured with the `use_original_params=True` flag. Some compatibility issues with particular models or configurations are expected at this time, but will be actively improved, and particular models can be prioritized if github issues are filed.
+FSDP itself is a “beta” PyTorch feature and
+has a higher level of system complexity than DDP
+due to the ability to tune which submodules are wrapped and
+because there are generally more configuration options.
+FSDP works with TorchDynamo and TorchInductor for a variety of popular models,
+if configured with the `use_original_params=True` flag.
+Some compatibility issues with particular models or
+configurations are expected at this time,
+    but will be actively improved,
+    and particular models can be prioritized if github issues are filed.
 
 Users specify an `auto_wrap_policy` argument to indicate which submodules of their model to wrap together in an FSDP instance used for state sharding, or manually wrap submodules in FSDP instances. For example, many transformer models work well when each ‘transformer block’ is wrapped in a separate FSDP instance and thus only the full state of one transformer block needs to be materialized at one time. Dynamo will insert graph breaks at the boundary of each FSDP instance, to allow communication ops in forward (and backward) to happen outside the graphs and in parallel to computation.
 
@@ -340,7 +594,11 @@ If FSDP is used without wrapping submodules in separate instances, it falls back
 
 ## Developer/Vendor Experience
 
-With PyTorch 2.0, we want to simplify the backend (compiler) integration experience. To do this, we have focused on **reducing the number of operators** and **simplifying the semantics** of the operator set necessary to bring up a PyTorch backend.
+With PyTorch 2.0,
+we want to simplify the backend (compiler)
+integration experience.
+To do this,
+we have focused on **reducing the number of operators** and **simplifying the semantics** of the operator set necessary to bring up a PyTorch backend. 
 
 In graphical form, the PT2 stack looks like:
 
@@ -348,7 +606,8 @@ In graphical form, the PT2 stack looks like:
 <img src="/assets/images/pytorch-2.0-img12.png" width="90%">
 </p>
 
-Starting in the middle of the diagram, AOTAutograd dynamically captures autograd logic in an ahead-of-time fashion, producing a graph of forward and backwards operators in FX graph format.
+Starting in the middle of the diagram,
+AOTAutograd dynamically captures autograd logic in an ahead-of-time fashion, producing a graph of forward and backwards operators in FX graph format.
 
 We provide a set of hardened decompositions (i.e. operator implementations written in terms of other operators) that can be leveraged to **reduce** the number of operators a backend is required to implement. We also **simplify** the semantics of PyTorch operators by selectively rewriting complicated PyTorch logic including mutations and views via a process called _functionalization_, as well as guaranteeing operator metadata information such as shape propagation formulas. This work is actively in progress; our goal is to provide a _primitive_ and _stable_ set of ~250 operators with simplified semantics, called _PrimTorch,_ that vendors can leverage (i.e. opt-in to) in order to simplify their integrations.
 
@@ -366,7 +625,21 @@ We have built utilities for partitioning an FX graph into subgraphs that contain
 
 ## Final Thoughts
 
-We are super excited about the direction that we’ve taken for PyTorch 2.0 and beyond. The road to the final 2.0 release is going to be rough, but come join us on this journey early-on. If you are interested in deep-diving further or contributing to the compiler, please continue reading below which includes more information on how to get started (e.g., tutorials, benchmarks, models, FAQs) and **Ask the Engineers: 2.0 Live Q&A Series** starting this month. Additional resources include:
+We are super excited about the direction that we’ve taken for PyTorch 2.0 and
+beyond.
+The road to the final 2.0 release is going to be rough,
+but come join us on this journey early-on.
+If you are interested in deep-diving further or
+contributing to the compiler,
+please continue reading below which
+includes more information on how to get started (e.g.,
+tutorials,
+benchmarks,
+models,
+FAQs)
+and **Ask the Engineers:
+2.0 Live Q&A Series** starting this month.
+Additional resources include:
 
 - Getting Started @ [https://pytorch.org/docs/master/dynamo/get-started.html](https://pytorch.org/docs/master/dynamo/get-started.html)
 - Tutorials @ [https://pytorch.org/tutorials/](https://pytorch.org/tutorials/)
@@ -381,19 +654,27 @@ We are super excited about the direction that we’ve taken for PyTorch 2.0 and 
 
 Author: Mark Saroufim
 
-`torch.compile()` makes it easy to experiment with different compiler backends to make PyTorch code faster with a single line decorator `torch.compile()`. It works either directly over an nn.Module as a drop-in replacement for torch.jit.script() but without requiring you to make any source code changes. We expect this one line code change to provide you with between 30%-2x training time speedups on the vast majority of models that you’re already running.
+
+It works either directly over an nn.Module as a drop-in replacement for torch.jit.script()
+    but without requiring you to make any source code changes.
+We expect this one line code change to provide you with between 30%-2x ¿training time speedups¿ on the vast majority of models that you’re already running.
 
 ```python
 opt_module = torch.compile(module)
 ```
 
-torch.compile supports arbitrary PyTorch code, control flow, mutation and comes with experimental support for dynamic shapes. We’re so excited about this development that we call it PyTorch 2.0.
+torch.compile supports arbitrary PyTorch code, control flow, mutation and
+comes with ¿experimental¿ support for dynamic shapes. 
 
-What makes this announcement different for us is we’ve already benchmarked some of the most popular open source PyTorch models and gotten substantial speedups ranging from 30% to 2x [https://github.com/pytorch/torchdynamo/issues/681](https://github.com/pytorch/torchdynamo/issues/681).
+What makes this announcement different for us is we’ve already benchmarked some of the most popular open source PyTorch models and
+gotten substantial speedups ranging from 30% to 2x [https://github.com/pytorch/torchdynamo/issues/681](https://github.com/pytorch/torchdynamo/issues/681).
 
-There are no tricks here, we’ve pip installed popular libraries like [https://github.com/huggingface/transformers](https://github.com/huggingface/transformers), [https://github.com/huggingface/accelerate](https://github.com/huggingface/accelerate) and [https://github.com/rwightman/pytorch-image-models](https://github.com/rwightman/pytorch-image-models) and then ran torch.compile() on them and that’s it.
+There are no tricks here,
+we’ve pip installed popular libraries like [https://github.com/huggingface/transformers](https://github.com/huggingface/transformers),
+[https://github.com/huggingface/accelerate](https://github.com/huggingface/accelerate)
+and [https://github.com/rwightman/pytorch-image-models](https://github.com/rwightman/pytorch-image-models)
+and then ran torch.compile() on them and that’s it.
 
-It’s rare to get both performance and convenience, but this is why the core team finds PyTorch 2.0 so exciting.
 
 ## Requirements
 
@@ -436,9 +717,15 @@ docker run --gpus all -it ghcr.io/pytorch/pytorch-nightly:latest /bin/bash
 
 Please read Mark Saroufim’s [full blog post](/blog/Accelerating-Hugging-Face-and-TIMM-models/) where he walks you through a tutorial and real models for you to try PyTorch 2.0 today.
 
-Our goal with PyTorch was to build a breadth-first compiler that would speed up the vast majority of actual models people run in open source. The Hugging Face Hub ended up being an extremely valuable benchmarking tool for us, ensuring that any optimization we work on actually helps accelerate models people want to run.
+Our goal with PyTorch was to build a breadth-first compiler that would speed up the vast majority of actual models people run in open source.
+The Hugging Face Hub ended up being an extremely valuable benchmarking tool for us,
+ensuring that any optimization we work on actually helps accelerate models people want to run.
 
-The blog tutorial will show you exactly how to replicate those speedups so you can be as excited as to PyTorch 2.0 as we are. So please try out PyTorch 2.0, enjoy the free perf and if you’re not seeing it then please open an issue and we will make sure your model is supported [https://github.com/pytorch/torchdynamo/issues](https://github.com/pytorch/torchdynamo/issues)
+The blog tutorial will show you exactly how to replicate those speedups so you can be as excited as to PyTorch 2.0 as we are.
+So please try out PyTorch 2.0,
+enjoy the free perf and
+if you’re not seeing it then please open an issue and
+we will make sure your model is supported [https://github.com/pytorch/torchdynamo/issues](https://github.com/pytorch/torchdynamo/issues)
 
 After all, we can’t claim we’re created a breadth-first unless **YOUR** models actually run faster.
 

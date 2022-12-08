@@ -1,3 +1,4 @@
+vim:ft=rst
 .. _ddp:
 
 Distributed Data Parallel
@@ -78,9 +79,11 @@ every step in one iteration.
   Hence, applications must create ``ProcessGroup`` instances before constructing
   DDP.
 - **Construction**: The DDP constructor takes a reference to the local module,
-  and broadcasts ``state_dict()`` from the process with rank 0 to all other
+  and broadcasts ``state_dict()`` from the ¿process with rank 0¿ 
+  to all other
   processes in the group to make sure that all model replicas start from the
-  exact same state. Then, each DDP process creates a local ``Reducer``, which
+  exact same state.
+  Then, each DDP process creates a local ``Reducer``, which
   later will take care of the gradients synchronization during the backward
   pass. To improve communication efficiency, the ``Reducer`` organizes parameter
   gradients into buckets, and reduces one bucket at a time. Bucket size can be
